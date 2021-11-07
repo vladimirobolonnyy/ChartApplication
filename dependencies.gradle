@@ -1,0 +1,283 @@
+ext {
+    compileSdkVersion = 30
+    minSdkVersion = 23
+    targetSdkVersion = 30
+    instrumentationTestRunner = "ru.alfacapital.lk.kastests.runner.AdaptavistTestRunner"
+    buildToolsVersion = '29.0.2'
+    multiDEXVersion = '2.0.1'
+
+    gradleVersion = '4.2.0'
+
+    kotlinVersion = '1.5.31'
+    archNavigationVersion = '2.3.0-alpha04'
+
+    constraintLayoutVersion = '1.1.3'
+    lifecycleVersion = '2.1.0'
+    gridLayoutVersion = '1.0.0'
+    cardviewVersion = '1.0.0'
+    legacyVersion = '1.0.0'
+    annotationCompilerVersion = '1.1.0'
+    coreUtilsVersion = '1.0.0'
+    coreKtxVersion = '1.0.0'
+    fragmentVersion = '1.3.0-alpha04'
+    preference = '1.1.1'
+
+    googleServicesPluginVersion = '4.3.4'
+    googlePlayServicesVersion = '15.0.1'
+    googlePlayAnalyticsVersion = '16.0.1'
+
+    appsflyerVersion = '6.3.2'
+    appmetricaVersion = '3.15.0'
+
+    firebaseCoreVersion = '17.5.0'
+    firebasePerformanceVersion = '19.0.9'
+    firebaseAuthVersion = '19.4.0'
+    firebaseConfigVersion = '19.2.0'
+    firebaseAppDistributionVersion = '2.0.1'
+    firebaseMessaging = '20.3.0'
+    firebaseCrashlyticsPlugin = "2.3.0"
+
+    crashlyticsLib = "17.2.2"
+    jobDispatcherVersion = '0.8.7'
+
+    rxJavaVersion = '2.2.8'
+    rxAndroidVersion = '2.0.1'
+    coroutinesVersion = '1.5.2'
+
+    retrofitVersion = '2.9.0'
+    okHttpVersion = '4.9.1'
+    loggingInterceptorVersion = '3.0.0'
+
+    glideVersion = '4.11.0'
+    glideTransformationVersion = '3.0.1'
+
+    crashlyticsVersion = '2.7.0'
+
+    timberVersion = '4.7.1'
+    youtubePlayerVersion = '10.0.5'
+    exoplayerVersion = '2.15.0'
+
+    junitVersion = '4.12'
+    testRunnerVersion = '1.0.1'
+    espressoVersion = "3.0.1"
+    ktorVersion = '1.6.0'
+
+    gsonVersion = '2.8.5'
+    flexboxVersion = '0.3.2'
+    jodaTimeVersion = '2.9.9.4'
+    materialVersion = '1.0.0'
+    materialEditTextVersion = '2.1.4'
+    androidChartVersion = 'v3.1.0'
+    autofitTextViewVersion = '0.2.1'
+    gaussianBlurVersion = 'v1.0.3'
+    maskedEditTextVersion = '1.0.5'
+    tinkoffDecoroVersion = '1.3.4'
+    circleIndicatorVersion = '1.2.1'
+    installreferrerVersion = '1.0'
+    viewPager2ViewVersion = '1.1.0-alpha01'
+    swipereveallayoutVersion = '1.4.1'
+    lottieVersion = '4.2.0'
+
+    mfmsPushVersion = '3.3.0'
+    ednaHuaweiPushVersion = '3.3.1'
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // KOTLIN
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    kotlinImpl = [
+            stdLib7: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
+            stdLib : "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    ]
+    installreferrer = "com.android.installreferrer:installreferrer:$installreferrerVersion"
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // GRADLE
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    gradlePlugin = "com.android.tools.build:gradle:$gradleVersion"
+    kotlinPlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // ANDROIDX LIBRARIES
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    androidxLib = [
+            appCompat         : "androidx.appcompat:appcompat:1.1.0",
+            cardView          : "androidx.cardview:cardview:$cardviewVersion",
+            constraintLayout  : "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion",
+            coreUtils         : "androidx.legacy:legacy-support-core-utils:$coreUtilsVersion",
+            coreKtx           : "androidx.core:core-ktx:$coreKtxVersion",
+            livedata_ktx      : "androidx.lifecycle:lifecycle-livedata-ktx:2.1.0",
+            gridLayout        : "androidx.gridlayout:gridlayout:$gridLayoutVersion",
+            legacy            : "androidx.legacy:legacy-support-v4:$legacyVersion",
+            lifecycle         : "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion",
+            fragmentRuntime   : "androidx.fragment:fragment:$fragmentVersion",
+            fragmentRuntimeKtx: "androidx.fragment:fragment-ktx:$fragmentVersion",
+            preference        : "androidx.preference:preference-ktx:$preference",
+            recyclerview      : "androidx.recyclerview:recyclerview:1.2.1"
+    ]
+    archLib = [
+            navigationFragmentKtx: "androidx.navigation:navigation-fragment-ktx:$archNavigationVersion",
+            navigationUIKtx      : "androidx.navigation:navigation-ui-ktx:$archNavigationVersion"
+    ]
+    multiDEXLib = "com.android.support:multidex:$multiDEXVersion"
+    archNavigationPlugin = "androidx.navigation:navigation-safe-args-gradle-plugin:$archNavigationVersion"
+    annotationCompiler = "androidx.annotation:annotation:$annotationCompilerVersion"
+    biometric = "androidx.biometric:biometric:1.0.1"
+    workmanager = "androidx.work:work-runtime-ktx:2.3.4"
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // GOOGLE SERVICES PLUGIN
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    googleServicesPlugin = "com.google.gms:google-services:$googleServicesPluginVersion"
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // GOOGLE PLAY SERVICES
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    playServices = [
+            maps     : "com.google.android.gms:play-services-maps:$googlePlayServicesVersion",
+            location : "com.google.android.gms:play-services-location:$googlePlayServicesVersion",
+            analytics: "com.google.android.gms:play-services-analytics:$googlePlayAnalyticsVersion",
+            wallet   : "com.google.android.gms:play-services-wallet:17.0.0",
+            base     : "com.google.android.gms:play-services-base:17.0.0",
+            core     : "com.google.android.play:core:1.10.0"
+
+    ]
+    playServicesAuth = [
+            'com.google.android.gms:play-services-auth:17.0.0',
+            'com.google.android.gms:play-services-auth-api-phone:17.1.0'
+    ]
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // ANALYTICS
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    analytics = [
+            appsflyer : "com.appsflyer:af-android-sdk:${appsflyerVersion}@aar",
+            lvl       : "com.appsflyer:lvl:${appsflyerVersion}",
+            appmetrica: "com.yandex.android:mobmetricalib:${appmetricaVersion}"
+    ]
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // FIREBASE SERVICES
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    firebaseCore = "com.google.firebase:firebase-core:$firebaseCoreVersion"
+    firebaseAuth = "com.google.firebase:firebase-auth:$firebaseAuthVersion"
+    firebaseMessaging = "com.google.firebase:firebase-messaging:$firebaseMessaging"
+    firebasePerformance = "com.google.firebase:firebase-perf:$firebasePerformanceVersion"
+    firebaseJobDispatcher = "com.firebase:firebase-jobdispatcher:$jobDispatcherVersion"
+    firebaseConfig = "com.google.firebase:firebase-config:$firebaseConfigVersion"
+    firebaseAppDistribution = "com.google.firebase:firebase-appdistribution-gradle:$firebaseAppDistributionVersion"
+
+    debugMfmsPush = "com.edna.android:push-lite-debug:$mfmsPushVersion"
+    releaseMfmsPush = "com.edna.android:push-lite-release:$mfmsPushVersion"
+    huaweiAgconnect = "com.huawei.agconnect:agcp:1.4.1.300"
+    debugEdnaHuaweiPush = "com.edna.android:push-lite-huawei-debug:$ednaHuaweiPushVersion"
+    releaseEdnaHuaweiPush = "com.edna.android:push-lite-huawei-release:$ednaHuaweiPushVersion"
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // RX
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    rxJava = "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    rxAndroid = "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    coroutines = [
+            core         : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion",
+            android      : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion",
+            coroutinesRx2: "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:$coroutinesVersion"
+    ]
+
+    yandexPush = "com.yandex.android:mobmetricapushlib:1.5.0"
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // NETWORK
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    retrofit = [
+            retrofit     : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            gsonConverter: "com.squareup.retrofit2:converter-gson:$retrofitVersion",
+            scalars      : "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
+    ]
+    okHttp = "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    loggingInterceptor = "com.github.ihsanbal:LoggingInterceptor:$loggingInterceptorVersion"
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // IMAGE LOADING
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    glide = [
+            glide          : "com.github.bumptech.glide:glide:$glideVersion",
+            integration    : "com.github.bumptech.glide:okhttp3-integration:$glideVersion",
+            transformations: "jp.wasabeef:glide-transformations:$glideTransformationVersion"
+    ]
+    glideCompiler = "com.github.bumptech.glide:compiler:$glideVersion"
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // UI
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    material = "com.google.android.material:material:$materialVersion"
+    materialEditText = "com.rengwuxian.materialedittext:library:$materialEditTextVersion"
+    androidChart = "com.github.PhilJay:MPAndroidChart:$androidChartVersion"
+    autofitTextView = "me.grantland:autofittextview:$autofitTextViewVersion"
+    gaussianBlur = "com.github.jrvansuita:GaussianBlur:$gaussianBlurVersion"
+    maskedEditText = "ru.egslava:MaskedEditText:$maskedEditTextVersion"
+    tinkoffDecoro = "ru.tinkoff.decoro:decoro:$tinkoffDecoroVersion"
+    circleIndicator = "me.relex:circleindicator:$circleIndicatorVersion@aar"
+    viewPager2 = "androidx.viewpager2:viewpager2:$viewPager2ViewVersion"
+    swipereveallayout = "com.chauthai.swipereveallayout:swipe-reveal-layout:$swipereveallayoutVersion"
+    lottie = "com.airbnb.android:lottie:$lottieVersion"
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // CRASH-REPORTING
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    firebaseCrashlyticsPlugin = "com.google.firebase:firebase-crashlytics-gradle:$firebaseCrashlyticsPlugin"
+    crashlyticsLib = "com.google.firebase:firebase-crashlytics:$crashlyticsLib"
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // TESTING
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    jUnit = "junit:junit:$junitVersion"
+    test = [
+            "junit:junit:$junitVersion",
+            "com.squareup.okhttp3:mockwebserver:$okHttpVersion",
+            'org.mockito:mockito-core:2.23.0',
+            "joda-time:joda-time:2.10.3",
+            "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+    ]
+    espressoTest = 'androidx.test.espresso:espresso-core:3.3.0-rc01'
+    guava = 'com.google.guava:guava:24.1-jre'
+
+
+    androidTest = [
+            'com.kaspersky.android-components:kaspresso:1.2.1',
+            'androidx.test:core-ktx:1.3.0-rc01',
+            'androidx.test.ext:junit-ktx:1.1.2-rc01',
+            'androidx.test:runner:1.3.0-rc01',
+            'androidx.test:rules:1.3.0-rc01',
+            "com.squareup.okhttp3:mockwebserver:$okHttpVersion",
+            "junit:junit:$junitVersion",
+            "com.android.support.test.espresso:espresso-core:$espressoVersion",
+    ]
+
+    zephyrIntegration = [
+            "io.ktor:ktor-client-okhttp:$ktorVersion",
+            "io.ktor:ktor-client-core:$ktorVersion",
+            "io.ktor:ktor-client-cio:$ktorVersion",
+            "io.ktor:ktor-client-logging:$ktorVersion",
+            "net.sourceforge.htmlunit:htmlunit:2.15",
+            "io.ktor:ktor-client-gson:$ktorVersion",
+            "ch.qos.logback:logback-classic:1.2.3",
+            "ru.alfacapital:KAdapravistJunitFormatter:1.1",
+    ]
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+// OTHER
+////////////////////////////////////////////////////////////////////////////////////////////////
+    flexbox = "com.google.android:flexbox:$flexboxVersion"
+    gson = "com.google.code.gson:gson:$gsonVersion"
+    timber = "com.jakewharton.timber:timber:$timberVersion"
+    youtubePlayer = "com.pierfrancescosoffritti.androidyoutubeplayer:core:$youtubePlayerVersion"
+    exoplayer = "com.google.android.exoplayer:exoplayer:$exoplayerVersion"
+    qrcode = 'com.github.SumiMakito:AwesomeQRCode:1.2.0'
+    photo_viewer = 'com.github.chrisbanes:PhotoView:2.3.0'
+    exoplayerMediasession = "com.google.android.exoplayer:extension-mediasession:$exoplayerVersion"
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+// DATE AND TIME
+////////////////////////////////////////////////////////////////////////////////////////////////
+    jodaTime = "net.danlew:android.joda:$jodaTimeVersion"
+}
