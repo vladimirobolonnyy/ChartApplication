@@ -103,6 +103,7 @@ fun ComposeChart(
 
         when (val chartState = chartState.value) {
             is ChartPressedState.PressOneFinger -> {
+                this.drawVerticalLine(chartState, data)
                 this.drawPoint(chartState, data)
             }
             is ChartPressedState.PressTwoFingers -> {
@@ -136,13 +137,28 @@ fun DrawScope.drawPoint(state: ChartPressedState.PressOneFinger, data: ChartComp
     }
 
     val point = data.findPointByX(state.x) ?: return
+    val radius = 10.toDp().toPx()
     drawCircle(
         color = Color(40, 193, 218),
-        radius = 10f,
+        radius = radius,
         center = Offset(point.x, point.y)
     )
+}
 
-
+fun DrawScope.drawVerticalLine(state: ChartPressedState.PressOneFinger, data: ChartComputeData) {
+    val point = data.findPointByX(state.x) ?: return
+    drawLine(
+        start = Offset(
+            x = point.x,
+            y = 0f
+        ),
+        end = Offset(
+            x = point.x,
+            y = size.height
+        ),
+        color = Color(0, 0, 0),
+        strokeWidth = 2.toDp().toPx()
+    )
 }
 
 fun DrawScope.drawChartLine(data: ChartComputeData) {
