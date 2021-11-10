@@ -109,7 +109,7 @@ fun ComposeChart(
 
             }
             is ChartPressedState.Unpressed -> {
-
+                this.drawChartGradientBackground(data)
             }
         }
 

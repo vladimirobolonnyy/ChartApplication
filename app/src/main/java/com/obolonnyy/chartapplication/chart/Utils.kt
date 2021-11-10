@@ -4,9 +4,11 @@ package com.obolonnyy.chartapplication.chart
 fun ArrayList<Point>.search(searchX: Float): Point {
     require(this.size > 1)
 
-    val (midIndex, comparedValue) = this.binarySearch(searchX)
+    val midIndex = this.binarySearch(searchX)
     // мы нашли ближайшую точку midIndex, но это по индексам, а не координатам
     // теперь надо понять, действительно ли она ближайшая, или соседняя будет ближе
+
+    val comparedValue = this[midIndex].x - searchX
 
     return when {
         // midIndex правее точки searchX
@@ -33,24 +35,28 @@ fun ArrayList<Point>.search(searchX: Float): Point {
     }
 }
 
-private fun ArrayList<Point>.binarySearch(searchX: Float): Pair<Int, Float> {
+private fun ArrayList<Point>.binarySearch(searchX: Float): Int {
     require(this.size > 1)
 
     var leftIndex = 0
     var rightIndex = this.size - 1
     var midIndex = 0
-    var comparedValue = 0f
 
     while (leftIndex <= rightIndex) {
         midIndex = ((leftIndex + rightIndex) / 2)
         val midVal = this[midIndex].x
-        comparedValue = midVal - searchX
+        val comparedValue = midVal - searchX
 
         when {
             comparedValue < 0 -> leftIndex = midIndex + 1
             comparedValue > 0 -> rightIndex = midIndex - 1
-            else -> return midIndex to 0f
+            else -> return midIndex
         }
     }
-    return midIndex to comparedValue
+    return midIndex
+}
+
+public fun <T> List<T>.second(): T {
+    if (size < 1) throw NoSuchElementException("List has less than 2 elements")
+    return this[1]
 }
