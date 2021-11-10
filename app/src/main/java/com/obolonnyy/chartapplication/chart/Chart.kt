@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInteropFilter
+import androidx.compose.ui.unit.dp
 import com.obolonnyy.chartapplication.chart.data.TransactionsPerSecond
 import com.obolonnyy.chartapplication.chart.data.toDate
 import com.obolonnyy.chartapplication.chart.draw.*
@@ -31,7 +32,6 @@ fun ComposeChart(
     Canvas(modifier = modifier
         .fillMaxSize()
         .pointerInteropFilter {
-            println("MotionEvent , ${it}")
             when (it.action) {
                 MotionEvent.ACTION_DOWN -> {
                     chartState.value = ChartPressedState.PressOneFinger(it.x, it.y)
@@ -68,33 +68,31 @@ fun ComposeChart(
             true
         }) {
 
-        val data = transactionsPerSecond.toDate(size)
+        val chartPaddingTop: Float = 60.dp.toPx()
+        val chartPaddingBottom: Float = 35.dp.toPx()
+        val data = transactionsPerSecond.toDate(size, chartPaddingTop, chartPaddingBottom)
 
         when (val chartState = chartState.value) {
             is ChartPressedState.PressOneFinger -> {
                 this.drawChartGradientBackground(data.points)
-                this.drawVerticalLine(chartState, data)
+                this.drawVerticalLine(chartState, data, chartPaddingBottom)
                 this.drawPoint(chartState, data)
-                this.drawAxisXDark(data, size)
+                this.drawAxisXDark(data, size, chartPaddingTop, chartPaddingBottom)
                 this.drawBottomDatesDark(data, size)
             }
             is ChartPressedState.PressTwoFingers -> {
                 this.drawChartGradientBackgroundBetween(chartState, data)
-                this.drawVerticalLine(chartState, data)
-                this.drawVerticalLine(chartState, data)
+                this.drawVerticalLine(chartState, data, chartPaddingBottom)
                 this.drawPoint(chartState, data)
-                this.drawPoint(chartState, data)
-                this.drawAxisXDark(data, size)
+                this.drawAxisXDark(data, size, chartPaddingTop, chartPaddingBottom)
                 this.drawBottomDatesDark(data, size)
-
             }
             is ChartPressedState.Unpressed -> {
                 this.drawChartGradientBackground(data.points)
-                this.drawAxisXLight(data, size)
+                this.drawAxisXLight(data, size, chartPaddingTop, chartPaddingBottom)
                 this.drawBottomDatesLight(data, size)
             }
         }
-
         this.drawChartLine(data)
     }
 }

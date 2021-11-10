@@ -13,16 +13,31 @@ import kotlin.random.Random
 
 private val random = Random(4)
 
-private val transactions = (0..20).toList().map {
-    TransactionRate(it.toLong(), random.nextDouble())
-}.toMutableList().apply {
-    this.add(TransactionRate(21, 0.0))
-}
-
-//private val transactions = (0..5).toList().map {
+//private val transactions = (0..20).toList().map {
 //    TransactionRate(it.toLong(), random.nextDouble())
 //}.toMutableList().apply {
 //    this.add(TransactionRate(21, 0.0))
+//}
+
+private val transactions = mutableListOf<TransactionRate>().apply {
+    this.add(TransactionRate(1, 110.0))
+    this.add(TransactionRate(1, 120.0))
+    this.add(TransactionRate(1, 130.0))
+    this.add(TransactionRate(1, 135.0))
+    this.add(TransactionRate(1, 100.0))
+    this.add(TransactionRate(1, 120.0))
+    this.add(TransactionRate(1, 115.0))
+    this.add(TransactionRate(1, 110.0))
+    this.add(TransactionRate(1, 150.0))
+    this.add(TransactionRate(1, 110.0))
+}
+
+//private val transactions = mutableListOf<TransactionRate>().apply {
+//    this.add(TransactionRate(1, 100.0))
+//    this.add(TransactionRate(1, 150.0))
+//    this.add(TransactionRate(1, 100.0))
+//    this.add(TransactionRate(1, 150.0))
+//    this.add(TransactionRate(1, 100.0))
 //}
 
 private val transactionsPerSecond = TransactionsPerSecond(transactions)

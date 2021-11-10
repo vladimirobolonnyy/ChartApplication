@@ -39,19 +39,27 @@ private fun DrawScope.drawPoint(point: Point) {
 }
 
 
-fun DrawScope.drawVerticalLine(state: ChartPressedState.PressOneFinger, data: ChartComputeData) {
+fun DrawScope.drawVerticalLine(
+    state: ChartPressedState.PressOneFinger,
+    data: ChartComputeData,
+    chartPaddingBottom: Float,
+) {
     val point = data.findPointByX(state.x) ?: return
-    this.drawVerticalLine(point)
+    this.drawVerticalLine(point, chartPaddingBottom)
 }
 
-fun DrawScope.drawVerticalLine(state: ChartPressedState.PressTwoFingers, data: ChartComputeData) {
+fun DrawScope.drawVerticalLine(
+    state: ChartPressedState.PressTwoFingers,
+    data: ChartComputeData,
+    chartPaddingBottom: Float,
+) {
     val point1 = data.findPointByX(state.x1) ?: return
     val point2 = data.findPointByX(state.x2) ?: return
-    this.drawVerticalLine(point1)
-    this.drawVerticalLine(point2)
+    this.drawVerticalLine(point1, chartPaddingBottom)
+    this.drawVerticalLine(point2, chartPaddingBottom)
 }
 
-fun DrawScope.drawVerticalLine(point: Point) {
+fun DrawScope.drawVerticalLine(point: Point, chartPaddingBottom: Float) {
     drawLine(
         start = Offset(
             x = point.x,
@@ -59,7 +67,7 @@ fun DrawScope.drawVerticalLine(point: Point) {
         ),
         end = Offset(
             x = point.x,
-            y = size.height
+            y = size.height - chartPaddingBottom
         ),
         color = black,
         strokeWidth = 2.toDp().toPx()

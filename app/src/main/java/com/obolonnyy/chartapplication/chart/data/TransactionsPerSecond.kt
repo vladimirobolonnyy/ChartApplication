@@ -11,6 +11,10 @@ data class TransactionsPerSecond(
     val maxTransaction: Double =
         transactions.maxByOrNull { it.transactionsPerSecondValue }?.transactionsPerSecondValue
             ?: 0.0
+
+    val minTransaction: Double =
+        transactions.minByOrNull { it.transactionsPerSecondValue }?.transactionsPerSecondValue
+            ?: 0.0
 }
 
 
@@ -23,24 +27,3 @@ data class TransactionRate(
     val timeStamp: Long,
     val transactionsPerSecondValue: Double
 )
-
-/**
- * Calculates the Y pixel coordinate for a given transaction rate.
- *
- * @param higherTransactionRateValue the highest rate value in the whole list of transactions.
- * @param currentTransactionRate the current transaction RATE while iterating the list of transactions.
- * @param canvasHeight the canvas HEIGHT for draw the linear chart.
- *
- * @return [Float] Y coordinate for a transaction rate.
- */
-fun calculateYCoordinate(
-    higherTransactionRateValue: Double,
-    currentTransactionRate: Double,
-    canvasHeight: Float
-): Float {
-    val maxAndCurrentValueDifference = (higherTransactionRateValue - currentTransactionRate)
-        .toFloat()
-    val relativePercentageOfScreen = (canvasHeight / higherTransactionRateValue)
-        .toFloat()
-    return maxAndCurrentValueDifference * relativePercentageOfScreen
-}
