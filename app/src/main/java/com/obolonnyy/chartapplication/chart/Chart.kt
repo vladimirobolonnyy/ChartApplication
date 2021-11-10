@@ -1,6 +1,5 @@
 package com.obolonnyy.chartapplication.chart
 
-import android.graphics.Typeface
 import android.view.MotionEvent
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,14 +9,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
-import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.input.pointer.pointerInteropFilter
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 /**
  * Represents a group of Transactions
@@ -102,44 +95,36 @@ fun ComposeChart(
 
         when (val chartState = chartState.value) {
             is ChartPressedState.PressOneFinger -> {
+                this.drawChartGradientBackground(data)
                 this.drawVerticalLine(chartState, data)
                 this.drawPoint(chartState, data)
+                this.drawAxisXDark(data, size)
+                this.drawBottomDatesDark(data, size)
             }
             is ChartPressedState.PressTwoFingers -> {
 
             }
             is ChartPressedState.Unpressed -> {
                 this.drawChartGradientBackground(data)
+                this.drawAxisXLight(data, size)
+                this.drawBottomDatesLight(data, size)
             }
         }
 
         this.drawChartLine(data)
     }
-
 }
 
 fun DrawScope.drawPoint(state: ChartPressedState.PressOneFinger, data: ChartComputeData) {
-    val textPaint = Paint().asFrameworkPaint().apply {
-        isAntiAlias = true
-        textSize = 12.sp.toPx()
-        color = android.graphics.Color.BLUE
-        typeface = Typeface.create(Typeface.MONOSPACE, Typeface.BOLD)
-    }
-
-    drawIntoCanvas {
-        it.nativeCanvas.drawText(
-            "My Jetpack Compose Text, ${state.x}, ${state.y}",
-            0f,            // x-coordinates of the origin (top left)
-            120.dp.toPx(), // y-coordinates of the origin (top left)
-            textPaint
-        )
-    }
-
     val point = data.findPointByX(state.x) ?: return
-    val radius = 10.toDp().toPx()
     drawCircle(
-        color = Color(40, 193, 218),
-        radius = radius,
+        color = white,
+        radius = 11.toDp().toPx(),
+        center = Offset(point.x, point.y)
+    )
+    drawCircle(
+        color = black,
+        radius = 7.toDp().toPx(),
         center = Offset(point.x, point.y)
     )
 }
@@ -155,7 +140,7 @@ fun DrawScope.drawVerticalLine(state: ChartPressedState.PressOneFinger, data: Ch
             x = point.x,
             y = size.height
         ),
-        color = Color(0, 0, 0),
+        color = black,
         strokeWidth = 2.toDp().toPx()
     )
 }

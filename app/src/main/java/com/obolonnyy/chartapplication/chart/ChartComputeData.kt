@@ -9,11 +9,23 @@ data class ChartComputeData(
     val points: ArrayList<Point>
 ) {
 
+    val texts = listOf("Text1", "Text2", "Text3", "Text4")
+
     val pointsSize = points.size
     val maxY = points.maxByOrNull { it.y } ?: 0.0
     val minY = points.minByOrNull { it.y } ?: 0.0
+    val maxX = points.maxByOrNull { it.x } ?: 0.0
+    val minX = points.minByOrNull { it.x } ?: 0.0
 
     fun findPointByX(x: Float): Point? {
+        return when (pointsSize) {
+            0 -> null
+            1 -> points.first()
+            else -> points.search(x)
+        }
+    }
+
+    fun findPointByY(x: Float): Point? {
         return when (pointsSize) {
             0 -> null
             1 -> points.first()

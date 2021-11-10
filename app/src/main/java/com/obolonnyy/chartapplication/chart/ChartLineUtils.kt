@@ -5,6 +5,10 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 
+
+/**
+ * рисует линию графика
+ */
 internal fun DrawScope.drawChartLine(data: ChartComputeData) {
     for (i in 0 until data.pointsSize - 1) {
         val point1 = data.points[i]
@@ -25,6 +29,10 @@ internal fun DrawScope.drawChartLine(data: ChartComputeData) {
 }
 
 
+
+/**
+ * рисует градиент под графиком
+ */
 internal fun DrawScope.drawChartGradientBackground(data: ChartComputeData) {
     val gradientPath = Path().let {
         val pointFirst = data.points.first()

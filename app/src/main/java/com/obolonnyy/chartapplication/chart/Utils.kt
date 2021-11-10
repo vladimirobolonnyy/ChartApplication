@@ -56,7 +56,7 @@ private fun ArrayList<Point>.binarySearch(searchX: Float): Int {
     return midIndex
 }
 
-public fun <T> List<T>.second(): T {
+internal fun <T> List<T>.second(): T {
     if (size < 1) throw NoSuchElementException("List has less than 2 elements")
     return this[1]
 }
