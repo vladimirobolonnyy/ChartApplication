@@ -1,4 +1,4 @@
-package com.obolonnyy.chartapplication.chart
+package com.obolonnyy.chartapplication.chart.utils
 
 import androidx.compose.ui.graphics.Color
 

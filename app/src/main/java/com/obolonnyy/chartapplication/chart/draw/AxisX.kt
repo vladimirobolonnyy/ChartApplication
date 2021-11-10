@@ -1,5 +1,3 @@
-package com.obolonnyy.chartapplication.chart
-
 import android.graphics.Typeface
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -7,6 +5,9 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.unit.dp
+import com.obolonnyy.chartapplication.chart.ChartComputeData
+import com.obolonnyy.chartapplication.chart.utils.horizontalBrushColorDark
+import com.obolonnyy.chartapplication.chart.utils.horizontalBrushColorLight
 
 /**
  * рисует горизонтальные пунктирные оси и текст над ними

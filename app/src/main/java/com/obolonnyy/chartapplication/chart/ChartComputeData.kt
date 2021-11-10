@@ -1,6 +1,7 @@
 package com.obolonnyy.chartapplication.chart
 
 import androidx.compose.ui.geometry.Size
+import com.obolonnyy.chartapplication.chart.utils.search
 
 // координаты экрана х,у, по которым рисуется график
 data class Point(val x: Float, val y: Float)

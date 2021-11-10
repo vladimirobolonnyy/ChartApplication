@@ -1,34 +1,11 @@
-package com.obolonnyy.chartapplication.chart
+package com.obolonnyy.chartapplication.chart.draw
 
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
-
-
-/**
- * рисует линию графика
- */
-internal fun DrawScope.drawChartLine(data: ChartComputeData) {
-    for (i in 0 until data.pointsSize - 1) {
-        val point1 = data.points[i]
-        val point2 = data.points[i + 1]
-        drawLine(
-            start = Offset(
-                x = point1.x,
-                y = point1.y
-            ),
-            end = Offset(
-                x = point2.x,
-                y = point2.y
-            ),
-            color = chartLineColor,
-            strokeWidth = 1.toDp().toPx()
-        )
-    }
-}
-
-
+import com.obolonnyy.chartapplication.chart.ChartComputeData
+import com.obolonnyy.chartapplication.chart.utils.gradiendMainBottom
+import com.obolonnyy.chartapplication.chart.utils.gradiendMainTop
 
 /**
  * рисует градиент под графиком
@@ -63,4 +40,9 @@ internal fun DrawScope.drawChartGradientBackground(data: ChartComputeData) {
             )
         ),
     )
+}
+
+private fun <T> List<T>.second(): T {
+    if (size < 1) throw NoSuchElementException("List has less than 2 elements")
+    return this[1]
 }

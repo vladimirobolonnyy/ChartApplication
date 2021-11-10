@@ -1,4 +1,6 @@
-package com.obolonnyy.chartapplication.chart
+package com.obolonnyy.chartapplication.chart.utils
+
+import com.obolonnyy.chartapplication.chart.Point
 
 // Среди точек List<Point> по координате searchX находим ближайшую точку, и её возвращаем
 fun ArrayList<Point>.search(searchX: Float): Point {
@@ -54,9 +56,4 @@ private fun ArrayList<Point>.binarySearch(searchX: Float): Int {
         }
     }
     return midIndex
-}
-
-internal fun <T> List<T>.second(): T {
-    if (size < 1) throw NoSuchElementException("List has less than 2 elements")
-    return this[1]
 }

@@ -11,6 +11,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.input.pointer.pointerInteropFilter
+import com.obolonnyy.chartapplication.chart.draw.drawBottomDatesDark
+import com.obolonnyy.chartapplication.chart.draw.drawBottomDatesLight
+import com.obolonnyy.chartapplication.chart.draw.drawChartGradientBackground
+import com.obolonnyy.chartapplication.chart.draw.drawChartLine
+import com.obolonnyy.chartapplication.chart.utils.black
+import com.obolonnyy.chartapplication.chart.utils.white
+import drawAxisXDark
+import drawAxisXLight
 
 /**
  * Represents a group of Transactions
