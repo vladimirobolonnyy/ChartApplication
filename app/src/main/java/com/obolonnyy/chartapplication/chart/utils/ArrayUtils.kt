@@ -1,6 +1,6 @@
 package com.obolonnyy.chartapplication.chart.utils
 
-import com.obolonnyy.chartapplication.chart.Point
+import com.obolonnyy.chartapplication.chart.data.Point
 
 // Среди точек List<Point> по координате searchX находим ближайшую точку, и её возвращаем
 fun ArrayList<Point>.search(searchX: Float): Point {

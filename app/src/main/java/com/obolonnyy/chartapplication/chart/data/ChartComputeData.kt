@@ -1,4 +1,4 @@
-package com.obolonnyy.chartapplication.chart
+package com.obolonnyy.chartapplication.chart.data
 
 import androidx.compose.ui.geometry.Size
 import com.obolonnyy.chartapplication.chart.utils.search

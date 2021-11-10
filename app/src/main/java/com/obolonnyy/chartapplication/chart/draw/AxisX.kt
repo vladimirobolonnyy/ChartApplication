@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.unit.dp
-import com.obolonnyy.chartapplication.chart.ChartComputeData
+import com.obolonnyy.chartapplication.chart.data.ChartComputeData
 import com.obolonnyy.chartapplication.chart.utils.horizontalBrushColorDark
 import com.obolonnyy.chartapplication.chart.utils.horizontalBrushColorLight
 

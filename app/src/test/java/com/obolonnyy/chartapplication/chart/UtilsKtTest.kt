@@ -1,5 +1,6 @@
 package com.obolonnyy.chartapplication.chart
 
+import com.obolonnyy.chartapplication.chart.data.Point
 import org.junit.Test
 
 class UtilsKtTest {

@@ -8,62 +8,12 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.input.pointer.pointerInteropFilter
-import com.obolonnyy.chartapplication.chart.draw.drawBottomDatesDark
-import com.obolonnyy.chartapplication.chart.draw.drawBottomDatesLight
-import com.obolonnyy.chartapplication.chart.draw.drawChartGradientBackground
-import com.obolonnyy.chartapplication.chart.draw.drawChartLine
-import com.obolonnyy.chartapplication.chart.utils.black
-import com.obolonnyy.chartapplication.chart.utils.white
+import com.obolonnyy.chartapplication.chart.data.TransactionsPerSecond
+import com.obolonnyy.chartapplication.chart.data.toDate
+import com.obolonnyy.chartapplication.chart.draw.*
 import drawAxisXDark
 import drawAxisXLight
-
-/**
- * Represents a group of Transactions
- * @param maxTransaction the max transaction value in the list of transactions previously calculated in some repository.
- * @param transactions list of transactions per second.
- */
-data class TransactionsPerSecond(
-    val transactions: List<TransactionRate>,
-) {
-    val maxTransaction: Double =
-        transactions.maxByOrNull { it.transactionsPerSecondValue }?.transactionsPerSecondValue
-            ?: 0.0
-}
-
-
-/**
- * Represents a transaction rate.
- * @param timeStamp the time stamp of the transaction.
- * @param transactionsPerSecondValue the quantity of transactions made per second.
- */
-data class TransactionRate(
-    val timeStamp: Long,
-    val transactionsPerSecondValue: Double
-)
-
-/**
- * Calculates the Y pixel coordinate for a given transaction rate.
- *
- * @param higherTransactionRateValue the highest rate value in the whole list of transactions.
- * @param currentTransactionRate the current transaction RATE while iterating the list of transactions.
- * @param canvasHeight the canvas HEIGHT for draw the linear chart.
- *
- * @return [Float] Y coordinate for a transaction rate.
- */
-fun calculateYCoordinate(
-    higherTransactionRateValue: Double,
-    currentTransactionRate: Double,
-    canvasHeight: Float
-): Float {
-    val maxAndCurrentValueDifference = (higherTransactionRateValue - currentTransactionRate)
-        .toFloat()
-    val relativePercentageOfScreen = (canvasHeight / higherTransactionRateValue)
-        .toFloat()
-    return maxAndCurrentValueDifference * relativePercentageOfScreen
-}
 
 
 private val chartState: MutableState<ChartPressedState> =
@@ -81,15 +31,34 @@ fun ComposeChart(
     Canvas(modifier = modifier
         .fillMaxSize()
         .pointerInteropFilter {
+            println("MotionEvent , ${it}")
             when (it.action) {
                 MotionEvent.ACTION_DOWN -> {
                     chartState.value = ChartPressedState.PressOneFinger(it.x, it.y)
                 }
-                MotionEvent.ACTION_MOVE -> {
-                    chartState.value = ChartPressedState.PressOneFinger(it.x, it.y)
+                MotionEvent.ACTION_POINTER_DOWN -> {
+                    if (it.pointerCount <= 1) {
+                        chartState.value = ChartPressedState.Unpressed
+                    } else {
+                        chartState.value = ChartPressedState.PressTwoFingers(
+                            it.getX(0),
+                            it.getY(0),
+                            it.getX(1),
+                            it.getY(1),
+                        )
+                    }
                 }
-                MotionEvent.ACTION_UP -> {
-                    chartState.value = ChartPressedState.Unpressed
+                MotionEvent.ACTION_MOVE -> {
+                    if (it.pointerCount <= 1) {
+                        chartState.value = ChartPressedState.PressOneFinger(it.x, it.y)
+                    } else {
+                        chartState.value = ChartPressedState.PressTwoFingers(
+                            it.getX(0),
+                            it.getY(0),
+                            it.getX(1),
+                            it.getY(1),
+                        )
+                    }
                 }
                 else -> {
                     chartState.value = ChartPressedState.Unpressed
@@ -103,17 +72,24 @@ fun ComposeChart(
 
         when (val chartState = chartState.value) {
             is ChartPressedState.PressOneFinger -> {
-                this.drawChartGradientBackground(data)
+                this.drawChartGradientBackground(data.points)
                 this.drawVerticalLine(chartState, data)
                 this.drawPoint(chartState, data)
                 this.drawAxisXDark(data, size)
                 this.drawBottomDatesDark(data, size)
             }
             is ChartPressedState.PressTwoFingers -> {
+                this.drawChartGradientBackgroundBetween(chartState, data)
+                this.drawVerticalLine(chartState, data)
+                this.drawVerticalLine(chartState, data)
+                this.drawPoint(chartState, data)
+                this.drawPoint(chartState, data)
+                this.drawAxisXDark(data, size)
+                this.drawBottomDatesDark(data, size)
 
             }
             is ChartPressedState.Unpressed -> {
-                this.drawChartGradientBackground(data)
+                this.drawChartGradientBackground(data.points)
                 this.drawAxisXLight(data, size)
                 this.drawBottomDatesLight(data, size)
             }
@@ -121,36 +97,6 @@ fun ComposeChart(
 
         this.drawChartLine(data)
     }
-}
-
-fun DrawScope.drawPoint(state: ChartPressedState.PressOneFinger, data: ChartComputeData) {
-    val point = data.findPointByX(state.x) ?: return
-    drawCircle(
-        color = white,
-        radius = 11.toDp().toPx(),
-        center = Offset(point.x, point.y)
-    )
-    drawCircle(
-        color = black,
-        radius = 7.toDp().toPx(),
-        center = Offset(point.x, point.y)
-    )
-}
-
-fun DrawScope.drawVerticalLine(state: ChartPressedState.PressOneFinger, data: ChartComputeData) {
-    val point = data.findPointByX(state.x) ?: return
-    drawLine(
-        start = Offset(
-            x = point.x,
-            y = 0f
-        ),
-        end = Offset(
-            x = point.x,
-            y = size.height
-        ),
-        color = black,
-        strokeWidth = 2.toDp().toPx()
-    )
 }
 
 

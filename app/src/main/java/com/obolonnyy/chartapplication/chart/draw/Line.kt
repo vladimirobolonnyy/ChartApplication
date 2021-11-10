@@ -2,7 +2,7 @@ package com.obolonnyy.chartapplication.chart.draw
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import com.obolonnyy.chartapplication.chart.ChartComputeData
+import com.obolonnyy.chartapplication.chart.data.ChartComputeData
 import com.obolonnyy.chartapplication.chart.utils.chartLineColor
 
 

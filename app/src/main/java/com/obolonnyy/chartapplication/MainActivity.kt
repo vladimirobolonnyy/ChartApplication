@@ -6,8 +6,8 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.platform.ComposeView
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.obolonnyy.chartapplication.chart.ComposeChart
-import com.obolonnyy.chartapplication.chart.TransactionRate
-import com.obolonnyy.chartapplication.chart.TransactionsPerSecond
+import com.obolonnyy.chartapplication.chart.data.TransactionRate
+import com.obolonnyy.chartapplication.chart.data.TransactionsPerSecond
 import kotlin.random.Random
 
 
