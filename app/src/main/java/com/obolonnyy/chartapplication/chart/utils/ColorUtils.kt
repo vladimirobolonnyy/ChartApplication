@@ -8,6 +8,7 @@ internal val white = Color(0xFFFFFFFF)
 internal val black = Color(0xFF000000)
 internal val chartLineColor = Color(0xFF44C3FF)
 internal val gradiendMainTop = Color(0x664994DBL)
+internal val inputDotColor = Color(0xFF4994DBL)
 internal val gradiendMainBottom = Color(0x00000000L)
 
 

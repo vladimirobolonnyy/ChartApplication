@@ -28,12 +28,12 @@ fun DrawScope.drawPoint(state: ChartPressedState.PressTwoFingers, data: ChartCom
 private fun DrawScope.drawPoint(point: Point) {
     drawCircle(
         color = white,
-        radius = 11.toDp().toPx(),
+        radius = 6.toDp().toPx(),
         center = Offset(point.x, point.y)
     )
     drawCircle(
         color = black,
-        radius = 7.toDp().toPx(),
+        radius = 5.toDp().toPx(),
         center = Offset(point.x, point.y)
     )
 }

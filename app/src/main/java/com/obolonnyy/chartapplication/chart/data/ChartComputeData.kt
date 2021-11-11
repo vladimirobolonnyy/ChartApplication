@@ -3,10 +3,20 @@ package com.obolonnyy.chartapplication.chart.data
 import androidx.compose.ui.geometry.Size
 import com.obolonnyy.chartapplication.chart.utils.search
 
-// координаты экрана х,у, по которым рисуется график
-data class Point(val x: Float, val y: Float, val realValue: Double)
+// координаты точки х,у, по которым рисуется график
+data class Point(val x: Float, val y: Float, val value: Double)
 
-data class ChartComputeData(val points: ArrayList<Point>) {
+data class AdditionalPoint(
+    val x: Float,
+    val y: Float,
+    val descriptionFirstValue: String? = null,
+    val descriptionSecondValue: String? = null
+)
+
+data class ChartComputeData(
+    val points: ArrayList<Point>,
+    val additionalPoints: ArrayList<AdditionalPoint> = ArrayList()
+) {
 
     val texts = listOf("Text1", "Text2", "Text3", "Text4")
 
@@ -14,8 +24,8 @@ data class ChartComputeData(val points: ArrayList<Point>) {
     val maxY: Float = points.maxByOrNull { it.y }?.y ?: 0f
     val minY: Float = points.minByOrNull { it.y }?.y ?: 0f
 
-    val maxValueY: Double = points.maxByOrNull { it.realValue }?.realValue ?: 0.0
-    val minValueY: Double = points.minByOrNull { it.realValue }?.realValue ?: 0.0
+    val maxValueY: Double = points.maxByOrNull { it.value }?.value ?: 0.0
+    val minValueY: Double = points.minByOrNull { it.value }?.value ?: 0.0
 
     fun findPointByX(x: Float): Point? {
         return when (pointsSize) {
@@ -56,5 +66,42 @@ fun TransactionsPerSecond.toDate(
         Point(x, y.toFloat(), transactionRate.transactionsPerSecondValue)
     }
 
-    return ChartComputeData(ArrayList(points))
+    return ChartComputeData(ArrayList(points), ArrayList())
+}
+
+fun List<ChartInputData>.toChartComputeData(
+    size: Size,
+    chartPaddingTop: Float,
+    chartPaddingBottom: Float
+): ChartComputeData {
+
+    val totalRecords = this.size
+    val lineDistance = size.width / (totalRecords - 1)
+    val cHeight = size.height - chartPaddingTop - chartPaddingBottom
+
+    val maxValue = this.maxOf { it.value }
+    val minValue = this.minOf { it.value }
+    val diffValues = maxValue - minValue
+
+    val resultPoints = mutableListOf<Point>()
+    val additionalPoints = mutableListOf<AdditionalPoint>()
+    this.forEachIndexed { index, inputData ->
+        val x = lineDistance * (index)
+        val y = ((maxValue - inputData.value) / diffValues * cHeight + chartPaddingTop).toFloat()
+
+        resultPoints.add(Point(x = x, y = y, value = inputData.value))
+
+        if (inputData.hasValue) {
+            additionalPoints.add(
+                AdditionalPoint(
+                    x = x,
+                    y = y,
+                    descriptionFirstValue = inputData.descriptionFirstValue,
+                    descriptionSecondValue = inputData.descriptionSecondValue,
+                )
+            )
+        }
+    }
+
+    return ChartComputeData(ArrayList(resultPoints), ArrayList(additionalPoints))
 }
