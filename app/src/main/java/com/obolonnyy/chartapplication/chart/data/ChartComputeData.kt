@@ -1,17 +1,18 @@
 package com.obolonnyy.chartapplication.chart.data
 
 import androidx.compose.ui.geometry.Size
+import com.obolonnyy.chartapplication.chart.utils.PointX
 import com.obolonnyy.chartapplication.chart.utils.search
 
 // координаты точки х,у, по которым рисуется график
-data class Point(val x: Float, val y: Float, val value: Double)
+data class Point(override val x: Float, val y: Float, val value: Double) : PointX
 
 data class AdditionalPoint(
-    val x: Float,
+    override val x: Float,
     val y: Float,
     val descriptionFirstValue: String? = null,
     val descriptionSecondValue: String? = null
-)
+) : PointX
 
 data class ChartComputeData(
     val points: ArrayList<Point>,
@@ -32,6 +33,18 @@ data class ChartComputeData(
             0 -> null
             1 -> points.first()
             else -> points.search(x)
+        }
+    }
+
+    fun findAdditionalPointByX(x: Float): AdditionalPoint? {
+        return when (additionalPoints.size) {
+            0 -> null
+            1 -> additionalPoints.first()
+            else -> {
+                val point1 = additionalPoints.search(x)
+                val point2 = points.search(x)
+                point1.takeIf { point1.x == point2.x }
+            }
         }
     }
 }

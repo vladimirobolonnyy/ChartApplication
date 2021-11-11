@@ -8,7 +8,7 @@ import com.obolonnyy.chartapplication.chart.utils.white
 
 
 /**
- * рисует дополнительные точки вводы-вывода
+ * рисует дополнительные точки ввода-вывода на графике
  */
 internal fun DrawScope.drawChartLineDots(data: ChartComputeData) {
     data.additionalPoints.forEach { point ->

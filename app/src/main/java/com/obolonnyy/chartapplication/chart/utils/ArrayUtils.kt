@@ -1,10 +1,14 @@
 package com.obolonnyy.chartapplication.chart.utils
 
-import com.obolonnyy.chartapplication.chart.data.Point
+
+interface PointX {
+    val x: Float
+}
 
 // Среди точек List<Point> по координате searchX находим ближайшую точку, и её возвращаем
-fun ArrayList<Point>.search(searchX: Float): Point {
+fun <T : PointX> ArrayList<T>.search(searchX: Float): T {
     require(this.size > 1)
+
 
     val midIndex = this.binarySearch(searchX)
     // мы нашли ближайшую точку midIndex, но это по индексам, а не координатам
@@ -37,7 +41,7 @@ fun ArrayList<Point>.search(searchX: Float): Point {
     }
 }
 
-private fun ArrayList<Point>.binarySearch(searchX: Float): Int {
+private fun <T : PointX> ArrayList<T>.binarySearch(searchX: Float): Int {
     require(this.size > 1)
 
     var leftIndex = 0
