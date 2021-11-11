@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.obolonnyy.chartapplication.chart.ChartPressedState
 import com.obolonnyy.chartapplication.chart.data.ChartComputeData
 import com.obolonnyy.chartapplication.chart.utils.black
+import com.obolonnyy.chartapplication.chart.utils.green
 import com.obolonnyy.chartapplication.chart.utils.white
 import kotlin.math.max
 
@@ -27,7 +28,14 @@ internal fun DrawScope.drawInputText(
     data: ChartComputeData
 ) {
 
+    // todo
+    // получилось много кода
+    // мб как-нибудь надо зарефакторить
+    // или как-то просто отрисовать вьюху
+
+
     val point = data.findAdditionalPointByX(state.x) ?: return
+    if (point.lines == 0) return
 
     val paddingHorizontal = 12.dp.toPx()
     val paddingVertical = 5.dp.toPx()
@@ -40,14 +48,25 @@ internal fun DrawScope.drawInputText(
         typeface = Typeface.create(Typeface.MONOSPACE, Typeface.BOLD)
     }
 
-    val text1 = "some1 " + point.descriptionFirstValue
+    val greenPaint = Paint().asFrameworkPaint().apply {
+        isAntiAlias = true
+        textSize = 10.dp.toPx()
+        this.color = green.toArgb()
+        typeface = Typeface.create(Typeface.MONOSPACE, Typeface.BOLD)
+    }
+
+    val text1_1 = "some1 "
+    val text1_2 = point.descriptionFirstValue.orEmpty()
+    val text1 = text1_1 + text1_2
     val text2 = "some2 " + point.descriptionSecondValue
 
+    val text1_1Size = textPaint.measureText(text1_1)
     val text1Size = textPaint.measureText(text1)
     val text2Size = textPaint.measureText(text2)
 
     val maxTextWidth = max(text1Size, text2Size) + paddingHorizontal * 2
     val textHeight = textPaint.getTextHeight()
+    val maxTextHeight = paddingVertical * 2 + 3.dp.toPx() + textHeight * point.lines
 
     val x = when {
         point.x - (maxTextWidth / 2) < 0 -> 0f
@@ -60,27 +79,43 @@ internal fun DrawScope.drawInputText(
         topLeft = Offset(x, marginTop),
         size = Size(
             width = maxTextWidth,
-            height = textHeight * 2 + paddingVertical * 2 + 3.dp.toPx(),
+            height = maxTextHeight,
         ),
         cornerRadius = CornerRadius(10f)
     )
 
-    drawIntoCanvas {
-        it.nativeCanvas.drawText(
-            text1,
-            x + paddingHorizontal,
-            marginTop + paddingVertical + textHeight - 1.dp.toPx(),
-            textPaint
-        )
+    var text2y = marginTop + paddingVertical + textHeight * 2 + 1.dp.toPx()
+
+    if (point.descriptionFirstValue != null) {
+        drawIntoCanvas {
+            it.nativeCanvas.drawText(
+                text1_1,
+                x + paddingHorizontal,
+                marginTop + paddingVertical + textHeight - 1.dp.toPx(),
+                textPaint
+            )
+        }
+        drawIntoCanvas {
+            it.nativeCanvas.drawText(
+                text1_2,
+                x + paddingHorizontal + text1_1Size,
+                marginTop + paddingVertical + textHeight - 1.dp.toPx(),
+                greenPaint
+            )
+        }
+    } else {
+        text2y = marginTop + paddingVertical + textHeight - 1.dp.toPx()
     }
 
-    drawIntoCanvas {
-        it.nativeCanvas.drawText(
-            text2,
-            x + paddingHorizontal,
-            marginTop + paddingVertical + textHeight * 2 + 1.dp.toPx(),
-            textPaint
-        )
+    if (point.descriptionSecondValue != null) {
+        drawIntoCanvas {
+            it.nativeCanvas.drawText(
+                text2,
+                x + paddingHorizontal,
+                text2y,
+                textPaint
+            )
+        }
     }
 }
 

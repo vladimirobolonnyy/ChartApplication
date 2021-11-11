@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.Color
 
 internal val darkBlue = Color(0xFF0B1F35L)
 internal val white = Color(0xFFFFFFFF)
+internal val green = Color(0xFF49F8C3)
 internal val black = Color(0xFF000000)
 internal val chartLineColor = Color(0xFF44C3FF)
 internal val gradiendMainTop = Color(0x664994DBL)

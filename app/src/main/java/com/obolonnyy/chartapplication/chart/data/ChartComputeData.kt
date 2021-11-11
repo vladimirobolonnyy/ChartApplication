@@ -12,7 +12,13 @@ data class AdditionalPoint(
     val y: Float,
     val descriptionFirstValue: String? = null,
     val descriptionSecondValue: String? = null
-) : PointX
+) : PointX {
+    val lines = when {
+        descriptionFirstValue != null && descriptionSecondValue != null -> 2
+        descriptionFirstValue != null || descriptionSecondValue != null -> 1
+        else -> 0
+    }
+}
 
 data class ChartComputeData(
     val points: ArrayList<Point>,
