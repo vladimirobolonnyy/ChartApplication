@@ -21,11 +21,12 @@ data class AdditionalPoint(
 }
 
 data class ChartComputeData(
-    val points: ArrayList<Point>,
+    val points: ArrayList<Point> = ArrayList(),
     val additionalPoints: ArrayList<AdditionalPoint> = ArrayList()
 ) {
-
-    val texts = listOf("Text1", "Text2", "Text3", "Text4")
+    // количество дат под графиком
+    private val datesNumber = 4
+    val texts = getDates(datesNumber)
 
     val pointsSize = points.size
     val maxY: Float = points.maxByOrNull { it.y }?.y ?: 0f
@@ -53,40 +54,31 @@ data class ChartComputeData(
             }
         }
     }
+
+    private fun getDates(datesNumber: Int): List<String> {
+        val size = points.size - 1
+        val step = size / (datesNumber - 1).toFloat()
+        val resultList = mutableListOf<String>()
+        for (i in 0 until this.datesNumber) {
+            val index = (i * step).toInt()
+            val j = points[index]
+
+            //todo format date
+            resultList.add("text${j.y}")
+        }
+        return resultList
+    }
 }
 
 fun ChartComputeData.getValueByY(searchY: Float): Double {
     val diffPixels = maxY - minY
     val diffValues = maxValueY - minValueY
+
+    // на ноль не делим
+    if (diffPixels == 0f) return points.first().value
     return (((maxY - searchY) / diffPixels) * diffValues) + minValueY
 }
 
-fun TransactionsPerSecond.toDate(
-    size: Size,
-    chartPaddingTop: Float,
-    chartPaddingBottom: Float
-): ChartComputeData {
-
-    // Total number of transactions.
-    val totalRecords = this.transactions.size
-
-    // Maximum distance between dots (transactions)
-    val lineDistance = size.width / (totalRecords - 1)
-
-    // Canvas height
-    val cHeight = size.height - chartPaddingTop - chartPaddingBottom
-
-    val diffValues = maxTransaction - minTransaction
-
-    val points = this.transactions.mapIndexed { index, transactionRate ->
-        val x = lineDistance * (index)
-        val y =
-            (maxTransaction - transactionRate.transactionsPerSecondValue) / diffValues * cHeight + chartPaddingTop
-        Point(x, y.toFloat(), transactionRate.transactionsPerSecondValue)
-    }
-
-    return ChartComputeData(ArrayList(points), ArrayList())
-}
 
 fun List<ChartInputData>.toChartComputeData(
     size: Size,
@@ -94,20 +86,26 @@ fun List<ChartInputData>.toChartComputeData(
     chartPaddingBottom: Float
 ): ChartComputeData {
 
-    val totalRecords = this.size
-    val lineDistance = size.width / (totalRecords - 1)
-    val cHeight = size.height - chartPaddingTop - chartPaddingBottom
+    if (this.isEmpty()) {
+        return ChartComputeData()
+    }
+    if (this.size == 1) {
+        return this.first().toChartComputeData(size)
+    }
 
+    val cHeight = size.height - chartPaddingTop - chartPaddingBottom
     val maxValue = this.maxOf { it.value }
     val minValue = this.minOf { it.value }
     val diffValues = maxValue - minValue
+
+    val totalRecords = this.size
+    val lineDistance = size.width / (totalRecords - 1)
 
     val resultPoints = mutableListOf<Point>()
     val additionalPoints = mutableListOf<AdditionalPoint>()
     this.forEachIndexed { index, inputData ->
         val x = lineDistance * (index)
         val y = ((maxValue - inputData.value) / diffValues * cHeight + chartPaddingTop).toFloat()
-
         resultPoints.add(Point(x = x, y = y, value = inputData.value))
 
         if (inputData.hasValue) {
@@ -123,4 +121,22 @@ fun List<ChartInputData>.toChartComputeData(
     }
 
     return ChartComputeData(ArrayList(resultPoints), ArrayList(additionalPoints))
+}
+
+fun ChartInputData.toChartComputeData(size: Size): ChartComputeData {
+
+    val inputData = this
+    val y = size.height / 2
+    val point = Point(x = size.width / 2, y = y, value = inputData.value)
+    val additionalPoint = if (inputData.hasValue) {
+        AdditionalPoint(
+            x = size.width / 2,
+            y = y,
+            descriptionFirstValue = inputData.descriptionFirstValue,
+            descriptionSecondValue = inputData.descriptionSecondValue,
+        )
+    } else {
+        null
+    }
+    return ChartComputeData(ArrayList(listOf(point)), ArrayList(listOfNotNull(additionalPoint)))
 }

@@ -14,25 +14,8 @@ import kotlin.math.min
 /**
  * рисует градиент под графиком
  */
-internal fun DrawScope.drawChartGradientBackground(points: List<Point>) {
-    val gradientPath = Path().let {
-        val pointFirst = points.firstOrNull() ?: return
-        val pointLast = points.last()
-
-        it.moveTo(pointFirst.x, pointFirst.y)
-
-        points.forEach { point ->
-            //todo почистить relativeQuadraticBezierTo, если не получится его сделать
-//            it.relativeQuadraticBezierTo(point.x, point.y, halfx, point.y)
-            it.lineTo(point.x, point.y)
-        }
-        it.lineTo(pointLast.x, this.size.height)
-        it.lineTo(pointFirst.x, this.size.height)
-        it.lineTo(pointFirst.x, pointFirst.y)
-        it.close()
-        it
-    }
-
+internal fun DrawScope.drawChartGradientBackground(points: ArrayList<Point>) {
+    val gradientPath = points.drawCubicPath(Path())
     drawPath(
         path = gradientPath,
         brush = Brush.verticalGradient(
@@ -53,11 +36,6 @@ internal fun DrawScope.drawChartGradientBackgroundBetween(
     val i1 = data.points.indexOf(point1)
     val i2 = data.points.indexOf(point2)
     val resultList = data.points.subList(min(i1, i2), max(i1, i2) + 1)
-    this.drawChartGradientBackground(resultList)
+    this.drawChartGradientBackground(ArrayList(resultList))
 
-}
-
-private fun <T> List<T>.second(): T {
-    if (size < 1) throw NoSuchElementException("List has less than 2 elements")
-    return this[1]
 }

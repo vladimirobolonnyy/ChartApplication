@@ -27,7 +27,7 @@ private fun DrawScope.drawBottomDates(data: ChartComputeData, size: Size, color:
     val marginStart = 16.dp.toPx()
     val marginEnd = 16.dp.toPx()
     val marginBottom = 10.dp.toPx()
-    val textsNumber = 4
+    val textsNumber = data.texts.size
 
     val textPaint = Paint().asFrameworkPaint().apply {
         isAntiAlias = true

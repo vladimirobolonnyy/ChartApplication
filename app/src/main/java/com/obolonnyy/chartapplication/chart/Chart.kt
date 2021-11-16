@@ -103,7 +103,7 @@ private fun DrawScope.renderChart(transactionsPerSecond: List<ChartInputData>) {
     }
 
     // тут рисуем всё, что должно отображаться в не зависимости от того, нажат график или нет
-    this.drawChartLine(data)
+    this.drawChartLine(data, size)
     this.drawChartLineDots(data)
 }
 
