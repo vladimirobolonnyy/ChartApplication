@@ -1,0 +1,26 @@
+<resources>
+    <!--
+    Основной файл со стилями.
+    Изменять можно только после ревью дизайнера.
+    Текст для стиля проставляется в отдельном файле.
+    -->
+    <style name="Text">
+        <item name="android:fontFamily">@font/google_sans</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Text.Hero">
+        <item name="android:letterSpacing">-0.007</item>
+        <item name="android:fontFamily">@font/google_sans_medium</item>
+        <item name="height">30sp</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="Text.Title1">
+        <item name="android:fontFamily">@font/google_sans_medium</item>
+        <item name="android:textSize">18sp</item>
+        <item name="lineHeight">24sp</item>
+    </style>
+
+</resources>

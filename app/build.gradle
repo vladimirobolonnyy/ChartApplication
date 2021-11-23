@@ -56,6 +56,7 @@ dependencies {
     // When using a MDC theme
     implementation "com.google.android.material:compose-theme-adapter:1.1.0"
     implementation "androidx.compose.ui:ui:$composeVersion"
+    implementation "androidx.compose.ui:ui-text:$composeVersion"
     // Tooling support (Previews, etc.)
     implementation "androidx.compose.ui:ui-tooling:$composeVersion"
     // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
