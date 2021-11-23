@@ -33,7 +33,7 @@ private fun DrawScope.drawBottomDates(data: ChartComputeData, size: Size, color:
         isAntiAlias = true
         textSize = 10.dp.toPx()
         this.color = color.toArgb()
-        typeface = Typeface.create(Typeface.MONOSPACE, Typeface.BOLD)
+        typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
     }
 
     val maxWidth = size.width - marginStart - marginEnd

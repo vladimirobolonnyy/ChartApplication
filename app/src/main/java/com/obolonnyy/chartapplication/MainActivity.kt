@@ -7,7 +7,7 @@ import androidx.compose.ui.platform.ComposeView
 import com.google.android.material.composethemeadapter.MdcTheme
 import com.obolonnyy.chartapplication.chart.ComposeChart
 import com.obolonnyy.chartapplication.chart.data.ChartInputData
-import java.time.LocalDateTime
+import org.joda.time.LocalDateTime
 
 
 private val transactions2 = mutableListOf<ChartInputData>().apply {

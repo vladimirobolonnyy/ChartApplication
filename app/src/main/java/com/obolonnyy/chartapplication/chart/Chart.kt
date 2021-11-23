@@ -106,10 +106,3 @@ private fun DrawScope.renderChart(transactionsPerSecond: List<ChartInputData>) {
     this.drawChartLine(data, size)
     this.drawChartLineDots(data)
 }
-
-
-// lineDrawer
-// xAxisDrawer
-// yAxisDrawer
-// xlabelDrawer
-// ylabelDrawer

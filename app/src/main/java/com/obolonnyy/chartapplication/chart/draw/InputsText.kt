@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
 import com.obolonnyy.chartapplication.chart.ChartPressedState
+import com.obolonnyy.chartapplication.chart.data.AdditionalPoint
 import com.obolonnyy.chartapplication.chart.data.ChartComputeData
 import com.obolonnyy.chartapplication.chart.utils.black
 import com.obolonnyy.chartapplication.chart.utils.green
@@ -35,7 +36,7 @@ internal fun DrawScope.drawInputText(
 
 
     val point = data.findAdditionalPointByX(state.x) ?: return
-    if (point.lines == 0) return
+    if (point.lines() == 0) return
 
     val paddingHorizontal = 12.dp.toPx()
     val paddingVertical = 5.dp.toPx()
@@ -66,7 +67,7 @@ internal fun DrawScope.drawInputText(
 
     val maxTextWidth = max(text1Size, text2Size) + paddingHorizontal * 2
     val textHeight = textPaint.getTextHeight()
-    val maxTextHeight = paddingVertical * 2 + 3.dp.toPx() + textHeight * point.lines
+    val maxTextHeight = paddingVertical * 2 + 3.dp.toPx() + textHeight * point.lines()
 
     val x = when {
         point.x - (maxTextWidth / 2) < 0 -> 0f
@@ -117,6 +118,12 @@ internal fun DrawScope.drawInputText(
             )
         }
     }
+}
+
+private fun AdditionalPoint.lines() = when {
+    descriptionFirstValue != null && descriptionSecondValue != null -> 2
+    descriptionFirstValue != null || descriptionSecondValue != null -> 1
+    else -> 0
 }
 
 private fun NativePaint.getTextHeight(): Float {

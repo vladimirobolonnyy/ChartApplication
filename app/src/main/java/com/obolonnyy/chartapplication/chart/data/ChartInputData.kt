@@ -1,7 +1,7 @@
 package com.obolonnyy.chartapplication.chart.data
 
+import org.joda.time.LocalDateTime
 import java.io.Serializable
-import java.time.LocalDateTime
 
 
 class ChartInputData(
