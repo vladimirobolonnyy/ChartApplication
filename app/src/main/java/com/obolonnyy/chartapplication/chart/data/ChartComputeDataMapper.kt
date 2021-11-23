@@ -1,7 +1,7 @@
 package com.obolonnyy.chartapplication.chart.data
 
 import androidx.compose.ui.geometry.Size
-import com.obolonnyy.chartapplication.chart.utils.formatDaysDate
+import org.joda.time.LocalDateTime
 
 private const val datesNumber = 4
 
@@ -92,18 +92,17 @@ fun ChartInputData.toChartComputeData(size: Size): ChartComputeData {
 }
 
 
-private fun getDates(points: List<Point>, datesNumber: Int): List<String> {
+private fun getDates(points: List<Point>, datesNumber: Int): List<LocalDateTime> {
     val size = points.size - 1
     val step = size / (datesNumber - 1).toFloat()
-    val resultList = mutableListOf<String>()
+    val resultList = mutableListOf<LocalDateTime>()
     for (i in 0 until datesNumber) {
         val index = (i * step).toInt()
-        val text = formatDaysDate(points[index].dateTime)
-        resultList.add(text)
+        resultList.add(points[index].dateTime)
     }
     return resultList
 }
 
-private fun getDates(point: Point): List<String> {
-    return listOf(formatDaysDate(point.dateTime))
+private fun getDates(point: Point): List<LocalDateTime> {
+    return listOf(point.dateTime)
 }

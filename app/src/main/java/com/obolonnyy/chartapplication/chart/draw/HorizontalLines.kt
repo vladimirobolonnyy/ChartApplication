@@ -6,6 +6,7 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.unit.dp
 import com.obolonnyy.chartapplication.chart.data.ChartComputeData
+import com.obolonnyy.chartapplication.chart.utils.formatMoney
 import com.obolonnyy.chartapplication.chart.utils.horizontalBrushColorDark
 import com.obolonnyy.chartapplication.chart.utils.horizontalBrushColorLight
 
@@ -64,7 +65,7 @@ private fun DrawScope.drawAxisX(
             strokeWidth = 1.dp.toPx()
         )
 
-        val text = data.getValueByY(startY).toString()
+        val text = formatMoney(data.getValueByY(startY), 2)
         val textWidth = textPaint.measureText(text)
         val textStartX = size.width - textWidth - textRightMargin
 

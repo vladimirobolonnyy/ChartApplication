@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.unit.dp
 import com.obolonnyy.chartapplication.chart.data.ChartComputeData
+import com.obolonnyy.chartapplication.chart.utils.formatDaysDate
 import com.obolonnyy.chartapplication.chart.utils.horizontalBrushColorDark
 import com.obolonnyy.chartapplication.chart.utils.horizontalBrushColorLight
 
@@ -22,12 +23,12 @@ internal fun DrawScope.drawBottomDatesLight(data: ChartComputeData, size: Size) 
 }
 
 private fun DrawScope.drawBottomDates(data: ChartComputeData, size: Size, color: Color) {
-    val texts = data.texts
+    val texts = data.texts.map { formatDaysDate(it) }
     val firstText = texts.first()
     val marginStart = 16.dp.toPx()
     val marginEnd = 16.dp.toPx()
     val marginBottom = 10.dp.toPx()
-    val textsNumber = data.texts.size
+    val textsNumber = texts.size
 
     val textPaint = Paint().asFrameworkPaint().apply {
         isAntiAlias = true

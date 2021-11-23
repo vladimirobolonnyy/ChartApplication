@@ -1,12 +1,13 @@
 package com.obolonnyy.chartapplication.chart.data
 
 import com.obolonnyy.chartapplication.chart.utils.search
+import org.joda.time.LocalDateTime
 
 
 data class ChartComputeData(
     val points: ArrayList<Point> = ArrayList(),
     val additionalPoints: ArrayList<AdditionalPoint> = ArrayList(),
-    val texts: List<String> = ArrayList(),
+    val texts: List<LocalDateTime> = ArrayList(),
 ) {
 
     private val maxY: Float = points.maxByOrNull { it.y }?.y ?: 0f
