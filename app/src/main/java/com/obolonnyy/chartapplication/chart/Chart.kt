@@ -100,7 +100,7 @@ private fun DrawScope.renderChart(
     // тут рисуем разные стейты в не зависимости от того, нажат график или нет
     when (val chartState = chartState.value) {
         is ChartPressedState.PressOneFinger -> {
-            this.drawChartGradientBackground(data.points)
+            this.drawChartGradientBackground(data.points, animatedFloatState)
             this.drawVerticalLine(chartState, data, chartPaddingBottom)
             this.drawPoint(chartState, data)
             this.drawAxisXDark(data, chartPaddingTop, chartPaddingBottom)
@@ -115,7 +115,7 @@ private fun DrawScope.renderChart(
             this.drawBottomDatesDark(data)
         }
         is ChartPressedState.Unpressed -> {
-            this.drawChartGradientBackground(data.points)
+            this.drawChartGradientBackground(data.points, animatedFloatState)
             this.drawAxisXLight(data, chartPaddingTop, chartPaddingBottom)
             this.drawBottomDatesLight(data)
         }
