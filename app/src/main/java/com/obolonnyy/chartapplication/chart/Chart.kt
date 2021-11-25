@@ -1,11 +1,12 @@
 package com.obolonnyy.chartapplication.chart
 
 import android.view.MotionEvent
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.drawscope.DrawScope
@@ -27,12 +28,27 @@ fun ComposeChart(
     modifier: Modifier = Modifier,
     transactionsPerSecond: List<ChartInputData>
 ) {
+
+    val animationTargetState = remember { mutableStateOf(0f) }
+
+    val animatedFloatState = animateFloatAsState(
+        // Whenever the target value changes, new animation
+        // will start to the new target value
+        targetValue = animationTargetState.value,
+        animationSpec = tween(durationMillis = 2000, easing = LinearEasing)
+    )
+    LaunchedEffect(key1 = true, block = {
+    })
+
     if (transactionsPerSecond.isEmpty()) return
     Canvas(modifier = modifier
         .fillMaxSize()
         .pointerInteropFilter { filterPointer(it) }
     ) {
-        renderChart(transactionsPerSecond)
+        renderChart(transactionsPerSecond, animatedFloatState)
+
+        animationTargetState.value = 1f
+
     }
 }
 
@@ -73,7 +89,10 @@ private fun filterPointer(event: MotionEvent): Boolean {
     return true
 }
 
-private fun DrawScope.renderChart(transactionsPerSecond: List<ChartInputData>) {
+private fun DrawScope.renderChart(
+    transactionsPerSecond: List<ChartInputData>,
+    animatedFloatState: State<Float>
+) {
     val chartPaddingTop: Float = 60.dp.toPx()
     val chartPaddingBottom: Float = 35.dp.toPx()
     val data = transactionsPerSecond.toChartComputeData(size, chartPaddingTop, chartPaddingBottom)
@@ -84,25 +103,25 @@ private fun DrawScope.renderChart(transactionsPerSecond: List<ChartInputData>) {
             this.drawChartGradientBackground(data.points)
             this.drawVerticalLine(chartState, data, chartPaddingBottom)
             this.drawPoint(chartState, data)
-            this.drawAxisXDark(data, size, chartPaddingTop, chartPaddingBottom)
-            this.drawBottomDatesDark(data, size)
+            this.drawAxisXDark(data, chartPaddingTop, chartPaddingBottom)
+            this.drawBottomDatesDark(data)
             this.drawInputText(chartState, data)
         }
         is ChartPressedState.PressTwoFingers -> {
             this.drawChartGradientBackgroundBetween(chartState, data)
             this.drawVerticalLine(chartState, data, chartPaddingBottom)
             this.drawPoint(chartState, data)
-            this.drawAxisXDark(data, size, chartPaddingTop, chartPaddingBottom)
-            this.drawBottomDatesDark(data, size)
+            this.drawAxisXDark(data, chartPaddingTop, chartPaddingBottom)
+            this.drawBottomDatesDark(data)
         }
         is ChartPressedState.Unpressed -> {
             this.drawChartGradientBackground(data.points)
-            this.drawAxisXLight(data, size, chartPaddingTop, chartPaddingBottom)
-            this.drawBottomDatesLight(data, size)
+            this.drawAxisXLight(data, chartPaddingTop, chartPaddingBottom)
+            this.drawBottomDatesLight(data)
         }
     }
 
     // тут рисуем всё, что должно отображаться в не зависимости от того, нажат график или нет
-    this.drawChartLine(data, size)
+    this.drawChartLine(data, animatedFloatState)
     this.drawChartLineDots(data)
 }

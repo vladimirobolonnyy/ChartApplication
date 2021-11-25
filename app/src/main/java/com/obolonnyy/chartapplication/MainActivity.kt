@@ -18,6 +18,7 @@ private val transactions2 = mutableListOf<ChartInputData>().apply {
     this.add(ChartInputData(LocalDateTime.now(), 110.0, 1))
     this.add(ChartInputData(LocalDateTime.now(), 130.0, 1, "123"))
     this.add(ChartInputData(LocalDateTime.now(), 100.0, 1, "123"))
+    this.add(ChartInputData(LocalDateTime.now(), 150.0, 1, "123"))
 }
 
 class MainActivity : AppCompatActivity() {

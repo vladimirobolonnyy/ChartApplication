@@ -15,6 +15,10 @@ import kotlin.math.min
  * рисует градиент под графиком
  */
 internal fun DrawScope.drawChartGradientBackground(points: ArrayList<Point>) {
+
+    ///todo revvert mock
+    return
+
     val gradientPath = points.drawCubicPath(Path())
     drawPath(
         path = gradientPath,
@@ -31,6 +35,11 @@ internal fun DrawScope.drawChartGradientBackgroundBetween(
     state: ChartPressedState.PressTwoFingers,
     data: ChartComputeData
 ) {
+
+    ///todo revvert mock
+    return
+
+
     val point1 = data.findPointByX(state.x1) ?: return
     val point2 = data.findPointByX(state.x2) ?: return
     val i1 = data.points.indexOf(point1)

@@ -1,7 +1,6 @@
 package com.obolonnyy.chartapplication.chart.draw
 
 import android.graphics.Typeface
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
@@ -14,15 +13,15 @@ import com.obolonnyy.chartapplication.chart.utils.horizontalBrushColorLight
 /**
  * рисует подписи под графиком
  */
-internal fun DrawScope.drawBottomDatesDark(data: ChartComputeData, size: Size) {
-    this.drawBottomDates(data, size, horizontalBrushColorDark)
+internal fun DrawScope.drawBottomDatesDark(data: ChartComputeData) {
+    this.drawBottomDates(data, horizontalBrushColorDark)
 }
 
-internal fun DrawScope.drawBottomDatesLight(data: ChartComputeData, size: Size) {
-    this.drawBottomDates(data, size, horizontalBrushColorLight)
+internal fun DrawScope.drawBottomDatesLight(data: ChartComputeData) {
+    this.drawBottomDates(data, horizontalBrushColorLight)
 }
 
-private fun DrawScope.drawBottomDates(data: ChartComputeData, size: Size, color: Color) {
+private fun DrawScope.drawBottomDates(data: ChartComputeData, color: Color) {
     val texts = data.texts.map { formatDaysDate(it) }
     val firstText = texts.first()
     val marginStart = 16.dp.toPx()

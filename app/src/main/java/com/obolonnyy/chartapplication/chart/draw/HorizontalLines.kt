@@ -1,6 +1,5 @@
 import android.graphics.Typeface
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
@@ -15,25 +14,22 @@ import com.obolonnyy.chartapplication.chart.utils.horizontalBrushColorLight
  */
 internal fun DrawScope.drawAxisXDark(
     data: ChartComputeData,
-    size: Size,
     chartPaddingTop: Float,
     chartPaddingBottom: Float,
 ) {
-    this.drawAxisX(data, size, horizontalBrushColorDark, chartPaddingTop, chartPaddingBottom)
+    this.drawAxisX(data, horizontalBrushColorDark, chartPaddingTop, chartPaddingBottom)
 }
 
 internal fun DrawScope.drawAxisXLight(
     data: ChartComputeData,
-    size: Size,
     chartPaddingTop: Float,
     chartPaddingBottom: Float,
 ) {
-    this.drawAxisX(data, size, horizontalBrushColorLight, chartPaddingTop, chartPaddingBottom)
+    this.drawAxisX(data, horizontalBrushColorLight, chartPaddingTop, chartPaddingBottom)
 }
 
 private fun DrawScope.drawAxisX(
     data: ChartComputeData,
-    size: Size,
     color: Color,
     chartPaddingTop: Float,
     chartPaddingBottom: Float,

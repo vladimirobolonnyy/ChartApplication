@@ -1,7 +1,6 @@
 package com.obolonnyy.chartapplication.chart.draw
 
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -13,7 +12,7 @@ import com.obolonnyy.chartapplication.chart.utils.chartLineColor
 /**
  * рисует линию графика
  */
-internal fun DrawScope.drawChartLine(data: ChartComputeData, size: Size) {
+internal fun DrawScope.drawChartLine(data: ChartComputeData) {
     when {
         data.points.isEmpty() -> return
         data.points.size == 1 -> {
